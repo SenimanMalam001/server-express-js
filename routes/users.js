@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const { auth, otoritas} = require('../middlewares/auth')
+const { all, signin, index, create, update, destroy, find} = require('../controllers/UserController')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', auth, index);
+router.get('/all', auth, all);
+router.get('/:id', auth, find);
+router.post('/', auth, create);
+router.put('/:id', auth, update);
+router.delete('/:id', auth, destroy);
+router.post('/signin',signin);
 
 module.exports = router;
